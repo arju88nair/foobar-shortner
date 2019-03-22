@@ -28,11 +28,17 @@ Returns:
 @app.route('/', methods=['GET', 'POST'])
 def doFooBar():
     url=request.args.get('url')
-    if(urlValidate(url)):
+    monster=get_monster()
+    if(request.args.get('slug')):
+        short=request.args.get('slug')
+        if(mongo.find({'short': short}).count > 0):
+            return json.dumps({'success':False,'message':"Already taken"}), 400, {'ContentType':'application/json'}
+        else:
+            monster=short    
+    if(urlValidate(url) is None):
         return json.dumps({'success':False,'message':"Not a proper url"}), 400, {'ContentType':'application/json'} 
-
     else:
-        monster=get_monster()
+        
         mongo.insert({"url": url,"short":monster})
         return json.dumps({'success':True,'url':monster,'message':"Success"}), 200, {'ContentType':'application/json'} 
     
