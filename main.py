@@ -7,6 +7,7 @@ from flask import (
 from monsterurl import get_monster
 from flask_pymongo import PyMongo
 import re
+from bson.json_util import dumps
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/Foobar"
@@ -28,19 +29,16 @@ Returns:
 @app.route('/', methods=['GET', 'POST'])
 def doFooBar():
     url=request.args.get('url')
-    monster=get_monster()
+    short=get_monster()
     if(request.args.get('slug')):
         short=request.args.get('slug')
-        if(mongo.find({'short': short}).count > 0):
+        if mongo.count_documents({ 'short': short }, limit = 1) != 0:     
             return json.dumps({'success':False,'message':"Already taken"}), 400, {'ContentType':'application/json'}
-        else:
-            monster=short    
     if(urlValidate(url) is None):
         return json.dumps({'success':False,'message':"Not a proper url"}), 400, {'ContentType':'application/json'} 
-    else:
-        
-        mongo.insert({"url": url,"short":monster})
-        return json.dumps({'success':True,'url':monster,'message':"Success"}), 200, {'ContentType':'application/json'} 
+    else:      
+        insertURL(url,short)
+        return json.dumps({'success':True,'url':short,'message':"Success"}), 200, {'ContentType':'application/json'} 
     
    
 
@@ -61,6 +59,16 @@ def urlValidate(url):
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
     return re.match(regex, url)
 
+
+"""[insertion to the collection]
+
+Returns:
+    [type] -- [description]
+"""
+
+def insertURL(url,short):
+    _id = mongo.insert_one({"url": url,"short":short})
+    return _id
 
 
 # If we're running in stand alone mode, run the application
