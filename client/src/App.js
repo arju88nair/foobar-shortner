@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
    root: {
     flexGrow: 1,
+    color:'white'
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -44,11 +45,11 @@ class App extends Component {
       <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-        <Typography component="h2" variant="h1" gutterBottom className={classes.paper}>Foobar
+        <Typography component="h2" variant="h2" gutterBottom className={classes.paper}>Foobar
         </Typography>
         </Grid>
-
-
+        <br></br>
+        <br></br>
         <Grid item xs={12}>
         <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -64,12 +65,9 @@ class App extends Component {
         Make it short
       </Button>
         </form>
-        </Grid>
-
-       
+        </Grid>       
         </Grid>
         </div>
-
 </div>
       );
   }
