@@ -3,14 +3,11 @@ import './App.css';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography' 
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import purple from '@material-ui/core/colors/purple';
 
 const styles = theme => ({
    root: {
@@ -64,6 +61,7 @@ margin: {
 
 class App extends Component {
   handleChange = name => event => {
+    console.log(event.target.value)
     this.setState({ [name]: event.target.value });
   };
 
@@ -102,6 +100,7 @@ class App extends Component {
             underline: classes.cssUnderline,
           }}
           className={classes.textField}
+          onChange={this.handleChange('name')}
         />
       </FormControl>
       <br></br>
