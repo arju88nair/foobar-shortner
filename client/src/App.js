@@ -15,40 +15,42 @@ import purple from '@material-ui/core/colors/purple';
 const styles = theme => ({
    root: {
     flexGrow: 1,
-    color:'white'
+    color:'lightgoldenrodyellow'
   },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    color: theme.palette.text.secondary,
+  button: {
+    margin: theme.spacing.unit,
+    color:'lightgoldenrodyellow',
+    border:'thin solid lightgoldenrodyellow'
   },
   container: {
     flexWrap: 'wrap',
-    textAlign:'center'
+    textAlign:'center',
+    padding:theme.spacing.unit * 4
   },
   textField: {
     // padding: theme.spacing.unit * 2,
     textAlign: 'center',
     width: 600,
-    color:'white',
+    color:'lightgoldenrodyellow',
   },
   input:{
-    color:'white'
+    color:'lightgoldenrodyellow'
 },
 underline:{
-  color:'white'
+  color:'lightgoldenrodyellow'
 },
 cssLabel: {
   '&$cssFocused': {
-    color: 'white',
+    color: 'lightgoldenrodyellow',
   },
   '&:before': {
-    color: 'white',
+    color: 'lightgoldenrodyellow',
   },
 },
 cssFocused: {},
 cssUnderline: {
   '&:after': {
-    borderBottomColor: 'white',
+    borderBottomColor: 'lightgoldenrodyellow',
   },
  
 },
@@ -74,7 +76,7 @@ class App extends Component {
       <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12} className={classes.container}>
-        <Typography component="h2" variant="h2" gutterBottom className={classes.paper} style={{color:'white'}}>Foobar
+        <Typography component="h2" variant="h2" gutterBottom className={classes.paper} style={{color:'lightgoldenrodyellow'}}>Foobar
         </Typography>
         </Grid>
         <br></br>
