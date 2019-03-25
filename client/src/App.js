@@ -19,7 +19,6 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2,
-    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   container: {
@@ -27,11 +26,10 @@ const styles = theme => ({
     textAlign:'center'
   },
   textField: {
-    marginLeft: theme.spacing.unit ,
-    marginRight: theme.spacing.unit,
+    // padding: theme.spacing.unit * 2,
+    textAlign: 'center',
     width: 600,
     color:'white',
-    borderBottom: '2px solid white',
   },
   input:{
     color:'white'
@@ -43,12 +41,21 @@ cssLabel: {
   '&$cssFocused': {
     color: 'white',
   },
+  '&:before': {
+    color: 'white',
+  },
 },
 cssFocused: {},
 cssUnderline: {
   '&:after': {
     borderBottomColor: 'white',
   },
+ 
+},
+margin: {
+  margin: theme.spacing.unit,
+  textAlign: 'center',
+
 },
 
 });
@@ -66,13 +73,17 @@ class App extends Component {
 <div  className="App-header">
       <div className={classes.root}>
       <Grid container spacing={24}>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.container}>
         <Typography component="h2" variant="h2" gutterBottom className={classes.paper} style={{color:'white'}}>Foobar
         </Typography>
         </Grid>
         <br></br>
         <br></br>
-        <Grid item xs={12}>
+        <br></br>
+        <br></br>
+        <Grid item xs={12} className={classes.container}>
+        <br></br>
+        <br></br>
         <FormControl className={classes.margin}>
         <InputLabel
           htmlFor="custom-css-standard-input"
@@ -81,15 +92,22 @@ class App extends Component {
             focused: classes.cssFocused,
           }}
         >
-          Custom CSS
+         URL to Foobar
         </InputLabel>
         <Input
           id="custom-css-standard-input"
           classes={{
             underline: classes.cssUnderline,
           }}
+          className={classes.textField}
         />
-      </FormControl></Grid>       
+      </FormControl>
+      <br></br>
+        <br></br>
+        <Button variant="outlined" className={classes.button}>
+        Foobar!
+      </Button>
+      </Grid>       
         </Grid>
         </div>
 </div>
