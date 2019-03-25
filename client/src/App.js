@@ -66,6 +66,27 @@ class App extends Component {
   };
 
 
+
+  fetchData()
+  {
+    fetch("http://127.0.0.1:5000", {
+      method: "GET",
+      dataType: "JSON",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      }
+    })
+    .then((resp) => {
+      return resp.json()
+    }) 
+    .then((data) => {
+      this.setState({ url: data.suggestion })                    
+    })
+    .catch((error) => {
+      console.log(error, "catch the hoop")
+    })
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -105,7 +126,7 @@ class App extends Component {
       </FormControl>
       <br></br>
         <br></br>
-        <Button variant="outlined" className={classes.button}>
+        <Button variant="outlined" className={classes.button} onClick={this.fetchData}>
         Foobar!
       </Button>
       </Grid>       
