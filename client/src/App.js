@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography' 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import purple from '@material-ui/core/colors/purple';
 
 const styles = theme => ({
    root: {
@@ -26,9 +30,27 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit ,
     marginRight: theme.spacing.unit,
     width: 600,
-    color:'white'
+    color:'white',
+    borderBottom: '2px solid white',
   },
-  
+  input:{
+    color:'white'
+},
+underline:{
+  color:'white'
+},
+cssLabel: {
+  '&$cssFocused': {
+    color: 'white',
+  },
+},
+cssFocused: {},
+cssUnderline: {
+  '&:after': {
+    borderBottomColor: 'white',
+  },
+},
+
 });
 
 class App extends Component {
@@ -45,27 +67,29 @@ class App extends Component {
       <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-        <Typography component="h2" variant="h2" gutterBottom className={classes.paper}>Foobar
+        <Typography component="h2" variant="h2" gutterBottom className={classes.paper} style={{color:'white'}}>Foobar
         </Typography>
         </Grid>
         <br></br>
         <br></br>
         <Grid item xs={12}>
-        <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="standard-name"
-          label="URL"
-          className={classes.textField}
-          onChange={this.handleChange('name')}
-          margin="normal"
+        <FormControl className={classes.margin}>
+        <InputLabel
+          htmlFor="custom-css-standard-input"
+          classes={{
+            root: classes.cssLabel,
+            focused: classes.cssFocused,
+          }}
+        >
+          Custom CSS
+        </InputLabel>
+        <Input
+          id="custom-css-standard-input"
+          classes={{
+            underline: classes.cssUnderline,
+          }}
         />
-        <br></br>
-        <br></br>
-        <Button variant="outlined" className={classes.button}>
-        Make it short
-      </Button>
-        </form>
-        </Grid>       
+      </FormControl></Grid>       
         </Grid>
         </div>
 </div>
