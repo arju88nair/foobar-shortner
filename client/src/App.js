@@ -61,28 +61,36 @@ margin: {
 });
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {url: ""};
+  }
+
   handleChange = name => event => {
     console.log(event.target.value)
-    this.setState({ [name]: event.target.value });
+    this.setState({ url: event.target.value });
   };
 
 
 
-  fetchData()
+  fetchData= () => 
   {
+    console.log(this.state)
+    const data = { url:this.state.url}
     fetch("http://127.0.0.1:5000", {
-      method: "GET",
+      method: "POST",
       dataType: "JSON",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-      }
+      },
+      body: JSON.stringify(data)
+      
     })
     .then((resp) => {
       return resp.json()
     }) 
     .then((data) => {
       console.log(data)
-      this.setState({ url: data.suggestion })                    
     })
     .catch((error) => {
       console.log(error, "catch the hoop")

@@ -28,9 +28,9 @@ Returns:
 """
 
 # Create a URL route in our application for "/"
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET','POST'])
 def doFooBar():
-    url=request.args.get('url')
+    url=request.json.get('url')
     if(url is None):
         return json.dumps({'success':False,'message':"Empty URL"}), 400, {'ContentType':'application/json'} 
     short=get_monster()
