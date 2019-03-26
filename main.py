@@ -8,6 +8,8 @@ from monsterurl import get_monster
 from flask_pymongo import PyMongo
 import re
 from bson.json_util import dumps
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/Foobar"
@@ -16,7 +18,7 @@ mongo = mongo.db.urls
 
 # Create the application instance
 app = Flask(__name__, template_folder="templates")
-
+CORS(app)
 
 
 """[THe main route for creating the shortened url]
@@ -29,14 +31,17 @@ Returns:
 @app.route('/', methods=['GET', 'POST'])
 def doFooBar():
     url=request.args.get('url')
+    if(url is None):
+        return json.dumps({'success':False,'message':"Empty URL"}), 400, {'ContentType':'application/json'} 
     short=get_monster()
-    if(request.args.get('slug')):
-        short=request.args.get('slug')
-        if mongo.count_documents({ 'short': short }, limit = 1) != 0:     
-            return json.dumps({'success':False,'message':"Already taken"}), 400, {'ContentType':'application/json'}
+    
     if(urlValidate(url) is None):
         return json.dumps({'success':False,'message':"Not a proper url"}), 400, {'ContentType':'application/json'} 
-    else:      
+    else:
+        if(request.args.get('slug')):
+            short=request.args.get('slug')
+        if mongo.count_documents({ 'short': short }, limit = 1) != 0:     
+            return json.dumps({'success':False,'message':"Already taken"}), 400, {'ContentType':'application/json'}      
         insertURL(url,short)
         return json.dumps({'success':True,'url':short,'message':"Success"}), 200, {'ContentType':'application/json'} 
     

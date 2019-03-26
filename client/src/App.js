@@ -9,6 +9,7 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
+
 const styles = theme => ({
    root: {
     flexGrow: 1,
@@ -80,6 +81,7 @@ class App extends Component {
       return resp.json()
     }) 
     .then((data) => {
+      console.log(data)
       this.setState({ url: data.suggestion })                    
     })
     .catch((error) => {
