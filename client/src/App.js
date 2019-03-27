@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 const styles = theme => ({
@@ -63,11 +64,22 @@ margin: {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {url: ""};
+    this.state = {url: "",
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',};
   }
 
+  openSnack = state => () => {
+    console.log("Sss")
+    this.setState({ open: true, ...state });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   handleChange = name => event => {
-    console.log(event.target.value)
     this.setState({ url: event.target.value });
   };
 
@@ -75,8 +87,7 @@ class App extends Component {
 
   fetchData= () => 
   {
-    console.log(this.state)
-    const data = { url:this.state.url}
+   const data = { url:this.state.url}
     fetch("http://127.0.0.1:5000", {
       method: "POST",
       dataType: "JSON",
@@ -87,21 +98,35 @@ class App extends Component {
       
     })
     .then((resp) => {
+      this.openSnack({ vertical: 'bottom', horizontal: 'right' })
+
       return resp.json()
     }) 
     .then((data) => {
+
+      this.openSnack({ vertical: 'bottom', horizontal: 'right' })
       console.log(data)
     })
     .catch((error) => {
+      this.openSnack({ vertical: 'bottom', horizontal: 'right' })
       console.log(error, "catch the hoop")
     })
   }
 
   render() {
     const { classes } = this.props;
-
+    const { vertical, horizontal, open } = this.state;
     return (
 <div  className="App-header">
+<Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={this.handleClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">I love snacks</span>}
+        />
       <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12} className={classes.container}>
@@ -136,7 +161,7 @@ class App extends Component {
       </FormControl>
       <br></br>
         <br></br>
-        <Button variant="outlined" className={classes.button} onClick={this.fetchData}>
+        <Button variant="outlined" className={classes.button} onClick={this.openSnack({ vertical: 'top', horizontal: 'center' })}>
         Foobar!
       </Button>
       </Grid>       
