@@ -78,12 +78,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',};
+    this.keyPress = this.keyPress.bind(this);
   }
 
    chipClick = () =>{
     this.setState({copied: true})
     this.openSnack({ message: "Copied", variant: "success" });
   }
+
+  keyPress(e){
+    if(e.keyCode === 13){
+      this.setState({ url: e.target.value });
+       this.fetchData()
+    }
+ }
 
   openSnack(state) {
     this.setState({ open: true, ...state });
@@ -183,6 +191,7 @@ class App extends Component {
                   }}
                   className={classes.textField}
                   onChange={this.handleChange("name")}
+                  onKeyDown={this.keyPress}
                 />
               </FormControl>
             </Grid>
