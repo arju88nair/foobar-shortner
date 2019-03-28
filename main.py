@@ -32,16 +32,16 @@ Returns:
 def doFooBar():
     url=request.json.get('url')
     if(url is None):
-        return json.dumps({'success':False,'message':"Empty URL"}), 400, {'ContentType':'application/json'} 
+        return json.dumps({'success':False,'message':"Empty URL"}), 500, {'ContentType':'application/json'} 
     short=get_monster()
     
     if(urlValidate(url) is None):
-        return json.dumps({'success':False,'message':"Not a proper url"}), 400, {'ContentType':'application/json'} 
+        return json.dumps({'success':False,'message':"Not a proper url"}), 500, {'ContentType':'application/json'} 
     else:
         if(request.args.get('slug')):
             short=request.args.get('slug')
         if mongo.count_documents({ 'short': short }, limit = 1) != 0:     
-            return json.dumps({'success':False,'message':"Already taken"}), 400, {'ContentType':'application/json'}      
+            return json.dumps({'success':False,'message':"Already taken"}), 500, {'ContentType':'application/json'}      
         insertURL(url,short)
         return json.dumps({'success':True,'url':short,'message':"Success"}), 200, {'ContentType':'application/json'} 
     
