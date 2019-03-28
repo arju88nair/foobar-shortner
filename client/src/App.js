@@ -14,6 +14,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContent from "./utils/snackbar";
 import Chip from '@material-ui/core/Chip';
 import Assignment from '@material-ui/icons/Assignment';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const styles = theme => ({
   root: {
@@ -76,13 +77,11 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { url: "", open: false, message: "", variant: "success",chip :true,slug:''};
+    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',};
   }
 
-
-
-  
    chipClick() {
+    this.setState({copied: true})
     alert('You clicked the Chip.'); // eslint-disable-line no-alert
   }
 
@@ -115,7 +114,7 @@ class App extends Component {
         if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
-          this.setState({slug:`https://foobar.bz/${data.url}`})
+          this.setState({slug:`https://foobar.bz/${data.url}`,chip:true})
           this.openSnack({ message: data.url, variant: "success" });
         }
         console.log(data);
@@ -189,13 +188,18 @@ class App extends Component {
               </FormControl>
             </Grid>
             <Grid item xs={12} className={classes.container}>
-            { this.state.chip ? <Chip
-        icon={<Assignment />}
-        label={this.state.slug}
-        onClick={this.chipClick}
-        className={classes.chip}
-        color="black"
-      />: null }
+                  { this.state.chip ? 
+                    <CopyToClipboard text={this.state.slug} 
+                    onCopy={() => this.setState({copied: true})}>
+                  <Chip
+                  icon={<Assignment />}
+                  label={this.state.slug}
+                  onClick={this.chipClick}
+                  className={classes.chip}
+                  color="black"
+                  />
+                  </CopyToClipboard>
+                  : null }
             </Grid>
             <Grid item xs={12} className={classes.container}>
               <Button
