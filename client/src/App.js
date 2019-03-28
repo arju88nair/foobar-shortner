@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import PropTypes from "prop-types";
 import {
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme
+  withStyles
 } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -14,14 +12,20 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContent from "./utils/snackbar";
+import Chip from '@material-ui/core/Chip';
+import Assignment from '@material-ui/icons/Assignment';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     color: "lightgoldenrodyellow"
   },
-  margin: {
-    margin: theme.spacing.unit
+  chip: {
+    margin: theme.spacing.unit,
+    color:'black',
+    padding:14,
+    fontWeight:'bold',
+    backgroundColor:'lightgrey'
   },
   button: {
     margin: theme.spacing.unit,
@@ -65,16 +69,25 @@ const styles = theme => ({
   }
 });
 
+
+
+
 class App extends Component {
+  
   constructor(props) {
     super(props);
-    this.state = { url: "", open: false, message: "", variant: "success" };
+    this.state = { url: "", open: false, message: "", variant: "success",chip :true,slug:''};
+  }
+
+
+
+  
+   chipClick() {
+    alert('You clicked the Chip.'); // eslint-disable-line no-alert
   }
 
   openSnack(state) {
-    console.log(state);
     this.setState({ open: true, ...state });
-    console.log(this.state);
   }
 
   handleClose = () => {
@@ -99,9 +112,10 @@ class App extends Component {
         return resp.json();
       })
       .then(data => {
-        if (data.success == false) {
+        if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
+          this.setState({slug:`https://foobar.bz/${data.url}`})
           this.openSnack({ message: data.url, variant: "success" });
         }
         console.log(data);
@@ -117,7 +131,6 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
-    const { message, variant, open } = this.state;
     return (
       <div className="App-header">
         <Snackbar
@@ -174,6 +187,15 @@ class App extends Component {
                   onChange={this.handleChange("name")}
                 />
               </FormControl>
+            </Grid>
+            <Grid item xs={12} className={classes.container}>
+            { this.state.chip ? <Chip
+        icon={<Assignment />}
+        label={this.state.slug}
+        onClick={this.chipClick}
+        className={classes.chip}
+        color="black"
+      />: null }
             </Grid>
             <Grid item xs={12} className={classes.container}>
               <Button
