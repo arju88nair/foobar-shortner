@@ -80,9 +80,9 @@ class App extends Component {
     this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',};
   }
 
-   chipClick() {
+   chipClick = () =>{
     this.setState({copied: true})
-    alert('You clicked the Chip.'); // eslint-disable-line no-alert
+    this.openSnack({ message: "Copied", variant: "success" });
   }
 
   openSnack(state) {
@@ -114,8 +114,7 @@ class App extends Component {
         if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
-          this.setState({slug:`https://foobar.bz/${data.url}`,chip:true})
-          this.openSnack({ message: data.url, variant: "success" });
+          this.setState({slug:`http://127.0.0.1:5000/${data.url}`,chip:true})
         }
         console.log(data);
       })
