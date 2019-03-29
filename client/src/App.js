@@ -86,6 +86,7 @@ class App extends Component {
     this.openSnack({ message: "Copied", variant: "success" });
   }
 
+  // For calling the API on enter key click
   keyPress(e){
     if(e.keyCode === 13){
       this.setState({ url: e.target.value });
@@ -93,6 +94,7 @@ class App extends Component {
     }
  }
 
+ // Opening the snack bar
   openSnack(state) {
     this.setState({ open: true, ...state });
   }
@@ -101,10 +103,14 @@ class App extends Component {
     this.setState({ open: false });
   };
 
+
+  // Input
   handleChange = name => event => {
     this.setState({ url: event.target.value });
   };
 
+
+  // API call
   fetchData = () => {
     const data = { url: this.state.url };
     fetch("http://127.0.0.1:5000", {
