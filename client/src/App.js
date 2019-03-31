@@ -15,6 +15,15 @@ import MySnackbarContent from "./utils/snackbar";
 import Chip from '@material-ui/core/Chip';
 import Assignment from '@material-ui/icons/Assignment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { ClipLoader } from 'react-spinners';
+
+
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 const styles = theme => ({
   root: {
@@ -77,7 +86,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',};
+    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',loading: true};
     this.keyPress = this.keyPress.bind(this);
   }
 
@@ -145,6 +154,15 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className="App-header">
+      <div className='sweet-loading'>
+        <ClipLoader
+          css={override}
+          sizeUnit={"px"}
+          size={150}
+          color={'#123abc'}
+          loading={this.state.loading}
+        />
+      </div> 
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
