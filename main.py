@@ -24,7 +24,7 @@ app = Flask(__name__, template_folder="templates")
 CORS(app)
 
 
-"""[THe main route for creating the shortened url]
+"""[The main route for creating the shortened url]
 
 Returns:
     [json] -- [Success with the generated URL]

@@ -16,6 +16,7 @@ import Chip from '@material-ui/core/Chip';
 import Assignment from '@material-ui/icons/Assignment';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
 
 
@@ -86,7 +87,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',loading: true};
+    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',loading: false};
     this.keyPress = this.keyPress.bind(this);
   }
 
@@ -98,7 +99,7 @@ class App extends Component {
   // For calling the API on enter key click
   keyPress(e){
     if(e.keyCode === 13){
-      this.setState({ url: e.target.value });
+      this.setState({ url: e.target.value});
        this.fetchData()
     }
  }
@@ -121,6 +122,8 @@ class App extends Component {
 
   // API call
   fetchData = () => {
+    this.setState({loading:true})
+    return false;
     const data = { url: this.state.url };
     fetch("http://127.0.0.1:5000", {
       method: "POST",
@@ -137,7 +140,7 @@ class App extends Component {
         if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
-          this.setState({slug:`http://127.0.0.1:5000/${data.url}`,chip:true})
+          this.setState({slug:`http://127.0.0.1:5000/${data.url}`,chip:true,loading:false})
         }
         console.log(data);
       })
@@ -155,13 +158,6 @@ class App extends Component {
     return (
       <div className="App-header">
       <div className='sweet-loading'>
-        <ClipLoader
-          css={override}
-          sizeUnit={"px"}
-          size={150}
-          color={'#123abc'}
-          loading={this.state.loading}
-        />
       </div> 
         <Snackbar
           anchorOrigin={{
@@ -233,6 +229,13 @@ class App extends Component {
                   </CopyToClipboard>
                   : null }
             </Grid>
+             <ClipLoader
+          css={override}
+          sizeUnit={"px"}
+          size={60}
+          color={'#123abc'}
+          loading={this.state.loading}
+        />
             <Grid item xs={12} className={classes.container}>
               <Button
                 variant="outlined"
