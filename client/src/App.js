@@ -87,7 +87,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',loading: false};
+    this.state = { url: "", open: false, message: "", variant: "success",chip :false,slug:'',loading: false,disabled:false};
     this.keyPress = this.keyPress.bind(this);
   }
 
@@ -122,8 +122,7 @@ class App extends Component {
 
   // API call
   fetchData = () => {
-    this.setState({loading:true})
-    return false;
+    this.setState({loading:true,disabled:true})
     const data = { url: this.state.url };
     fetch("http://127.0.0.1:5000", {
       method: "POST",
@@ -140,7 +139,7 @@ class App extends Component {
         if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
-          this.setState({slug:`http://127.0.0.1:5000/${data.url}`,chip:true,loading:false})
+          this.setState({slug:`http://127.0.0.1:5000/${data.url}`,chip:true,loading:false,disabled:false})
         }
         console.log(data);
       })
@@ -149,6 +148,7 @@ class App extends Component {
           message: "Something went wrong. Please try again later",
           variant: "error"
         });
+        this.setState({loading:false,disabled:false})
         console.log(error, "catch the hoop");
       });
   };
@@ -241,6 +241,7 @@ class App extends Component {
                 variant="outlined"
                 className={classes.button}
                 onClick={this.fetchData}
+                disabled={this.state.disabled}
               >
                 Foobar!
               </Button>
