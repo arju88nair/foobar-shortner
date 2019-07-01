@@ -19,6 +19,7 @@ import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 
 
+const slug="http://127.0.0.1:5000"
 
 const override = css`
     display: block;
@@ -140,8 +141,7 @@ class App extends Component {
     }
     this.setState({ loading: true, disabled: true })
     const data = { url: this.state.url };
-    console.log(data)
-    fetch("http://127.0.0.1:5000", {
+    fetch(slug, {
       method: "POST",
       dataType: "JSON",
       headers: {
@@ -156,7 +156,7 @@ class App extends Component {
         if (data.success === false) {
           this.openSnack({ message: data.message, variant: "error" });
         } else {
-          this.setState({ slug: `http://127.0.0.1:5000/${data.url}`, chip: true, loading: false, disabled: false })
+          this.setState({ slug: slug+"/"+data.url, chip: true, loading: false, disabled: false })
         }
         console.log(data);
       })
