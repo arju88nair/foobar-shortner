@@ -78,6 +78,7 @@ def urlValidate(url):
     return re.match(regex, url)
 
 
+
 """[insertion to the collection]
 
 Returns:
@@ -87,6 +88,24 @@ Returns:
 def insertURL(url,short):
     _id = mongo.insert_one({"url": url,"short":short})
     return _id
+
+
+
+def FooBarFun():
+    url=request.json.get('url')
+    if(url is None):
+        return json.dumps({'success':False,'message':"Empty URL"}), 500, {'ContentType':'application/json'} 
+    short=get_monster()
+    
+    if(urlValidate(url) is None):
+        return json.dumps({'success':False,'message':"Not a proper url"}), 500, {'ContentType':'application/json'} 
+    else:
+        if(request.args.get('slug')):
+            short=request.args.get('slug')
+        if mongo.count_documents({ 'short': short }, limit = 1) != 0:     
+            return json.dumps({'success':False,'message':"Already taken"}), 500, {'ContentType':'application/json'}      
+        insertURL(url,short)
+        return json.dumps({'success':True,'url':short,'message':"Success"}), 200, {'ContentType':'application/json'} 
 
 
 # If we're running in stand alone mode, run the application
