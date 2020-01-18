@@ -11,7 +11,7 @@ checkbox-support==0.22
 click==6.7
 coloredlogs==10.0
 command-not-found==0.3
-cryptography==2.1.4
+cryptography==2.3
 cupshelpers==1.0
 defer==1.0.6
 distro-info===0.18ubuntu0.18.04.1
@@ -51,7 +51,7 @@ MarkupSafe==1.0
 meld==3.18.0
 monsterurl==0.2
 netifaces==0.10.4
-nltk==3.4
+nltk==3.4.5
 oauth==1.0.1
 oauthlib==2.0.6
 olefile==0.45.1
@@ -81,8 +81,10 @@ python-debian==0.1.32
 pytz==2018.5
 pyxdg==0.25
 PyYAML==5.1
+pyxdg==0.26
+PyYAML==3.12
 reportlab==3.4.0
-requests==2.19.1
+requests==2.20.0
 requests-unixsocket==0.1.5
 rsa==4.0
 SecretStorage==2.3.1
@@ -113,7 +115,7 @@ unity-scope-tomboy==0.1
 unity-scope-virtualbox==0.1
 unity-scope-yelp==0.1
 unity-scope-zotero==0.1
-urllib3==1.23
+urllib3==1.24.2
 usb-creator==0.3.3
 vboxapi==1.0
 verboselogs==1.7
@@ -122,7 +124,7 @@ virtualenv-clone==0.4.0
 virtualenvwrapper==4.8.2
 wadllib==1.3.2
 webencodings==0.5
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 xdiagnose==3.8.8
 xkit==0.0.0
 XlsxWriter==0.9.6
