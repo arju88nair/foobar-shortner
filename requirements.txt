@@ -36,7 +36,7 @@ humanfriendly==4.16.1
 idna==2.7
 instalooter==2.3.0
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 keyring==10.6.0
 keyrings.alt==3.0
 language-selector==0.1
